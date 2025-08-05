@@ -9,8 +9,13 @@ type Props = {
 
 export default function EmojiList({ onSelect, onCloseModal }: Props) {
   const [emoji] = useState<ImageSourcePropType[]>([
-     require("../assets/images/livros.jpg"),
-
+    require("../assets/images/livros.jpg"),
+    require("../assets/images/leitura.png"),
+    require("../assets/images/leituras.png"),
+    require("../assets/images/caixa-de-texto.png"),
+    require("../assets/images/livro-de-magia.png"),
+    require("../assets/images/pilha-de-livros.png"),
+    require("../assets/images/mensagens-de-texto.png"),
   ]);
 
   return (
