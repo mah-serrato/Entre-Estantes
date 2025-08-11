@@ -1,16 +1,16 @@
 import * as ImagePicker from 'expo-image-picker';
-import { useState, useRef } from 'react';
-import { ImageSourcePropType, Platform, StyleSheet, View, Animated } from "react-native";
+import { useRef, useState } from 'react';
+import { Animated, ImageSourcePropType, Platform, StyleSheet, View } from "react-native";
 
 import Button from '@/components/Button';
-import ImageViewer from '@/components/ImageViewer';
-import IconButton from '@/components/IconButton';
 import CircleButton from '@/components/CircleButton';
 import EmojiList from "@/components/EmojiList";
 import EmojiPicker from "@/components/EmojiPicker";
 import EmojiSticker from "@/components/EmojiSticker";
-import { GestureHandlerRootView, TapGestureHandler } from 'react-native-gesture-handler';
+import IconButton from '@/components/IconButton';
+import ImageViewer from '@/components/ImageViewer';
 import * as mediaLibrary from 'expo-media-library';
+import { GestureHandlerRootView, TapGestureHandler } from 'react-native-gesture-handler';
 import { captureRef } from 'react-native-view-shot';
 
 const PlaceholderImage = require('@/assets/images/livros.jpg');
