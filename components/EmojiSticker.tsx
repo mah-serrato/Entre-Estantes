@@ -1,16 +1,11 @@
-// src/components/EmojiSticker.tsx
-import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-  withSpring,
-} from 'react-native-reanimated';
-
-import { ImageSourcePropType } from 'react-native';
-import { Gesture, GestureDetector } from 'react-native-gesture-handler';
+import { Gesture, GestureDetector } from "react-native-gesture-handler";
+import Animated, { useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated";
+import { ImageSourcePropType } from "react-native";
+import { Image } from "expo-image";
 
 type Props = {
   imageSize: number;
-  stickerSource: ImageSourcePropType;
+  stickerSource: ImageSourcePropType;  
 };
 
 export default function EmojiSticker({ imageSize, stickerSource }: Props) {
@@ -18,27 +13,25 @@ export default function EmojiSticker({ imageSize, stickerSource }: Props) {
   const translateX = useSharedValue(0);
   const translateY = useSharedValue(0);
 
-  // Gesto de arrastar
-  const drag = Gesture.Pan().onChange((event) => {
-    translateX.value += event.changeX;
-    translateY.value += event.changeY;
-  });
-
-  // Gesto de dois toques
   const doubleTap = Gesture.Tap()
     .numberOfTaps(2)
     .onStart(() => {
-      scaleImage.value =
-        scaleImage.value === imageSize * 2 ? imageSize : imageSize * 2;
+      if (scaleImage.value === imageSize) {
+        scaleImage.value = imageSize * 2;   // aumenta
+      } else {
+        scaleImage.value = imageSize;       // volta ao normal
+      }
     });
-
-  // Combinação dos dois gestos
-  const gesture = Gesture.Simultaneous(drag, doubleTap);
 
   const imageStyle = useAnimatedStyle(() => ({
     width: withSpring(scaleImage.value),
     height: withSpring(scaleImage.value),
   }));
+
+  const drag = Gesture.Pan().onChange((event) => {
+    translateX.value += event.changeX;
+    translateY.value += event.changeY;
+  });
 
   const containerStyle = useAnimatedStyle(() => ({
     transform: [
@@ -48,13 +41,15 @@ export default function EmojiSticker({ imageSize, stickerSource }: Props) {
   }));
 
   return (
-    <GestureDetector gesture={gesture}>
-      <Animated.View style={[containerStyle, { top: -350 }]}>
-        <Animated.Image
-          source={stickerSource}
-          resizeMode="contain"
-          style={[imageStyle]}
-        />
+    <GestureDetector gesture={drag}>
+      <Animated.View style={[containerStyle, { top: -40 }]}>
+        <GestureDetector gesture={doubleTap}>
+          <Animated.Image
+            source={stickerSource}
+            resizeMode="contain"
+            style={[imageStyle]}
+          />
+        </GestureDetector>
       </Animated.View>
     </GestureDetector>
   );
