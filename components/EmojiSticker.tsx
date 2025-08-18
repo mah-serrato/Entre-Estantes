@@ -1,17 +1,17 @@
+import { ImageSourcePropType } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated";
-import { ImageSourcePropType } from "react-native";
-import { Image } from "expo-image";
 
 type Props = {
   imageSize: number;
   stickerSource: ImageSourcePropType;  
 };
 
-export default function EmojiSticker({ imageSize, stickerSource }: Props) {
+export default function EmojiSticker({ imageSize, stickerSource}: Props) {
   const scaleImage = useSharedValue(imageSize);
   const translateX = useSharedValue(0);
   const translateY = useSharedValue(0);
+  
 
   const doubleTap = Gesture.Tap()
     .numberOfTaps(2)
@@ -38,6 +38,11 @@ export default function EmojiSticker({ imageSize, stickerSource }: Props) {
       { translateX: translateX.value },
       { translateY: translateY.value },
     ],
+    alignContent: "center",
+    alignSelf: "center",
+    verticalAlign: "center",
+    marginVertical: -50,
+
   }));
 
   return (

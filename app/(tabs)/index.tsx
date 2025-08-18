@@ -96,8 +96,6 @@ export default function Index() {
               <EmojiSticker 
                 imageSize={48} 
                 stickerSource={pickedEmoji} 
-                initialX={imageCenterX}
-                initialY={imageCenterY}
               />
             )}
           </View>
